@@ -48,8 +48,6 @@ bool isPalindrome(string s) {
        
     }// casting the string to obtain a single continuous alphanumeric string
 
-    cout << "copy: " << copy << endl ;
-
     int i = 0 ;
     int j = copy.size() - 1 ;
 
@@ -69,23 +67,51 @@ bool isPalindrome(string s) {
     }// finding out when the string is valid palindrome or not when characters differ
 
     return true ;    
-}
+} // solution with Time complexity: O(n) and Space Complexity: O(m) → ' m ' being the size of the smaller string produced 
+
+bool alphanum(char c){
+    return (c >= 'A' && c <= 'Z' ||
+            c >= 'a' && c <= 'z' ||
+            c >= '0' && c <= '9') ;
+} // function to determine if the character is of alphanumerical type
+
+bool isPalindrome2(string s ){
+    int l = 0 ;
+    int r = s.size() - 1 ;
+
+    while(l < r){
+        while( l < r && !alphanum(s[l])){
+            l++ ;
+        } 
+        while( l < r && !alphanum(s[r])){
+            r-- ;
+        }
+        if( tolower(s[l]) != tolower(s[r])){
+            return false ;
+        }
+
+        l++ ; 
+        r-- ;
+    } 
+ 
+    return true ; 
+}   // other solution with Time Complexity O(n) and Space Complexity O(1) → no additional memory needed
+
+// both solutions using Two pointers
 
 int main () {
     
-    string str = "0P" ;
+    string str = "Was it a car or a cat I saw?" ;
 
-    isPalindrome(str) ;
+    if(isPalindrome2(str) && isPalindrome(str)){
 
-    // if(isPalindrome(str)){
-
-    //     cout << "is valid" ;
+        cout << "is valid" ;
     
-    // } else {
+    } else {
 
-    //     cout << "is not valid" ;
+        cout << "is not valid" ;
 
-    // } 
+    } 
     
     return 0 ;
 }
